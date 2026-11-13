@@ -1,10 +1,11 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GadgetPallet : MonoBehaviour
 {
@@ -13,16 +14,16 @@ public class GadgetPallet : MonoBehaviour
     private RectTransform palletParent;
     private Vector2 startPos, endPos;
     private bool _isOpen;
-    [SerializeField]
-    private Dictionary<Button, GameObject> ButtonGadgetPair;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         palletParent = GetComponent<RectTransform>();
         startPos = palletParent.position;
-        endPos = palletParent.position + (Vector3.up*2);
-        openClosePallet.onClick.AddListener(OpenClosePallet);
+        endPos = palletParent.position + (Vector3.up*4);
+        openClosePallet.onClick.AddListener(OpenClosePallet);        
     }
+
+    
 
     private void OpenClosePallet()
     {
@@ -32,9 +33,4 @@ public class GadgetPallet : MonoBehaviour
         _isOpen = !_isOpen;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
