@@ -589,7 +589,25 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   webProgressiveAssetLoading: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    EmbeddedLinux: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    GameCoreScarlett: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    GameCoreXboxOne: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    Kepler: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    LinuxHeadlessSimulation: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    Nintendo Switch: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    Nintendo Switch 2: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    PS4: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    PS5: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    QNX: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    Standalone: DOTWEEN;DOTWEEN_UITOOLKIT
+    VisionOS: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    WebGL: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    Windows Store Apps: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    XboxOne: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    iPhone: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
+    tvOS: DOTWEEN;DOTWEEN_EPO;DOTWEEN_UITOOLKIT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -613,7 +631,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: GamesNowGameJam
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -621,7 +639,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: GamesNowGameJam
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: GamesNowGameJam
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
