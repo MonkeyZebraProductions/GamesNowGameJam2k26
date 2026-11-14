@@ -23,10 +23,10 @@ public class GadgetPallet : MonoBehaviour
         openClosePallet.onClick.AddListener(OpenClosePallet);        
     }    
 
-    private void OpenClosePallet()
+    public void OpenClosePallet()
     {
         palletParent.transform.DOMove(_isOpen ? startPos : endPos,1f);
-        openClosePallet.GetComponentInChildren<TextMeshProUGUI>().transform.DOLocalRotate(_isOpen ? Vector3.zero : new Vector3(0, 0, 180), 1f);
+        openClosePallet.GetComponentInChildren<TextMeshProUGUI>().transform.DOLocalRotate(_isOpen ? Vector3.zero : new Vector3(0, 0, 180), 0.3f);
         _isOpen = !_isOpen;
     }
 
