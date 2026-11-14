@@ -33,6 +33,9 @@ public class Claw : MonoBehaviour
     {
         if (collision.TryGetComponent<Rigidbody2D>(out var component) && !_active)
         {
+
+            if (component.gravityScale == 0) return;
+
             var part = component.transform;
 
             part.SetParent(transform, true);

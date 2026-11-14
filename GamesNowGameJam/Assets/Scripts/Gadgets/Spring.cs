@@ -1,7 +1,18 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
 [SelectionBase]
+public abstract class Gadget : MonoBehaviour
+{
+    public abstract string FirstParametreName { get; }
+    public abstract string SecondParametreName { get; }
+
+    public Action<float> FirstParametreMethod;
+    public Action<float> SecondParametreMethod;
+}
+
+
 public class Spring : MonoBehaviour
 {
     [Header("REFERENCES")]
@@ -10,13 +21,25 @@ public class Spring : MonoBehaviour
 
 
     [Header("SPRING PARAMETRES")]
-    [SerializeField] private float _springPower = 2f;
+    [SerializeField] private float _defaultSpringPower = 2f;
+    [SerializeField] private float _currentSpringPower;
 
     [Header("ANIMATION SETTINGS")]
     [SerializeField] private float _animationSpeed = 0.1f;
 
     [SerializeField] private float _platformDefaultPosition = 1f;
     [SerializeField] private float _platformMaxExtention = 3f;
+
+    private Tween _springTween;
+
+    public float DefaultSpringPower => _defaultSpringPower;
+
+    public float CurrentSpringPower => _currentSpringPower;
+
+    void Awake()
+    {
+        SetSpringPower(_defaultSpringPower);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -31,7 +54,7 @@ public class Spring : MonoBehaviour
     {
         part.linearVelocity = Vector2.zero;
         var upDirection = transform.up;
-        part.AddForce(upDirection * _springPower, ForceMode2D.Impulse);
+        part.AddForce(upDirection * _currentSpringPower, ForceMode2D.Impulse);
     }
 
     private void Animate()
@@ -44,7 +67,6 @@ public class Spring : MonoBehaviour
         ExtendSpring(_platformMaxExtention);
     }
 
-    private Tween _springTween;
 
     private void ExtendSpring(float targetDistance)
     {
@@ -64,5 +86,10 @@ public class Spring : MonoBehaviour
             _animationSpeed
         );
         });
+    }
+
+    public void SetSpringPower(float power)
+    {
+        _currentSpringPower = power;
     }
 }

@@ -141,7 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spring
   _platform: {fileID: 3379125544047277765}
   _metalSprintSpriteRef: {fileID: 1964573949747552994}
-  _springPower: 15
+  _defaultSpringPower: 15
+  _currentSpringPower: 0
   _animationSpeed: 0.08
   _platformDefaultPosition: 1
   _platformMaxExtention: 3
@@ -517,7 +518,7 @@ Transform:
   m_GameObject: {fileID: 4876198906152137010}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0.805, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
