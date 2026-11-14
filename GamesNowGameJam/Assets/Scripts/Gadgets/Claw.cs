@@ -5,7 +5,12 @@ public class Claw : MonoBehaviour
 {
     [SerializeField] private Transform _claw;
     [SerializeField] private BoxCollider2D _boxCollider;
-    //[SerializeField] private float _maxReach;
+
+    [SerializeField] private SpriteRenderer _pillarRenderer;
+    [SerializeField] private SpriteRenderer _clawSpriteRenderer;
+    [SerializeField] private Sprite _grabbedSprite;
+    [SerializeField] private Sprite _releasedSprite;
+
     [SerializeField] private float _minExtendTime = 0.5f;
     [SerializeField] private float _maxExtendTime = 1f;
 
@@ -13,9 +18,13 @@ public class Claw : MonoBehaviour
     private float _clawDefaultYPosition;
     private bool _active;
 
+    private Tween _pillarTween;
+    private Vector2 _pillarDefaultSize;
+
     private void Start()
     {
         _clawDefaultYPosition = _claw.localPosition.y;
+        _pillarDefaultSize = _pillarRenderer.size;
     }
 
 
@@ -42,6 +51,8 @@ public class Claw : MonoBehaviour
 
         _active = true;
 
+        Animate(maxReach, extendTime);
+
         _claw.DOLocalMoveY(maxReach, extendTime).SetEase(Ease.Linear).OnComplete(() =>
         {
             GrabPart(rigidbody2D);
@@ -51,7 +62,7 @@ public class Claw : MonoBehaviour
 
     private void Retract()
     {
-        _claw.DOLocalMoveY(_clawDefaultYPosition, _minExtendTime).SetEase(Ease.Linear).OnComplete(ReleasePart);
+        _claw.DOLocalMoveY(_clawDefaultYPosition, _maxExtendTime * 3).SetEase(Ease.Linear).OnComplete(ReleasePart);
     }
 
 
@@ -66,6 +77,10 @@ public class Claw : MonoBehaviour
         _caughtPart.transform.parent = _claw;
 
         _caughtPart.transform.DOLocalMove(Vector2.zero, 0.1f);
+
+        // visual change
+
+        _clawSpriteRenderer.sprite = _grabbedSprite;
     }
 
     private void ReleasePart()
@@ -74,15 +89,40 @@ public class Claw : MonoBehaviour
 
         _caughtPart.transform.parent = null;
         _caughtPart.gravityScale = 1;
+
+        // visual change
+
+        _clawSpriteRenderer.sprite = _releasedSprite;
     }
 
     private float CalculateTime(float height)
     {
         var maxExtend = _boxCollider.bounds.max.y;
         var time = _maxExtendTime * height / maxExtend;
-        Debug.Log("time");
+        Debug.Log($"Time:{time}(Unclampped)");
         time = Mathf.Clamp(time, _minExtendTime, _maxExtendTime);
-
         return time;
+    }
+
+    private void Animate(float targetDistance, float extendTime)
+    {
+        _pillarTween?.Kill();
+
+        _pillarTween = DOTween.To(
+            () => _pillarRenderer.size,
+            x => _pillarRenderer.size = x,
+            new Vector2(_pillarDefaultSize.x, targetDistance),
+            extendTime
+        )
+        .SetEase(Ease.Linear)
+        .OnComplete(() =>
+        {
+            _pillarTween = DOTween.To(
+                () => _pillarRenderer.size,
+                x => _pillarRenderer.size = x,
+                _pillarDefaultSize,
+                _maxExtendTime * 3
+            ).SetEase(Ease.Linear);
+        });
     }
 }
