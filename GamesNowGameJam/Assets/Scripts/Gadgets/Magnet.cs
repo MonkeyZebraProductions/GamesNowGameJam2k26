@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [SelectionBase]
-public class Magnet : MonoBehaviour
+public class Magnet : Gadget
 {
     [SerializeField] private CircleCollider2D _magnetFieldTrigger;
     [SerializeField] private Transform _magnetFieldVisual;
@@ -14,9 +15,33 @@ public class Magnet : MonoBehaviour
 
     private int _objectsInField = 0;
 
+    public override string FirstParametreName => "Power";
+    public override float FirstMinimumParametreValue => 1;
+    public override float FirstMaximumParametreValue => 25;
+    public override Action<float> FirstParametreMethod => SetMagnetPower;
+
+
+    public override string SecondParametreName => "Radius";
+    public override float SecondMinimumParametreValue => 1;
+    public override float SecondMaxParametreValue => 5;
+    public override Action<float> SecondParametreMethod => SetMagnetRadius;
+
+    public override bool HasSecondParametre => true;
+    public override string GadgetName => "Magnet";
 
     private void Awake()
     {
+        _magnetFieldTrigger.radius = _magnetRadius;
+    }
+
+    private void SetMagnetPower(float value)
+    {
+        _magnetPower = value;
+    }
+
+    private void SetMagnetRadius(float value)
+    {
+        _magnetRadius = value;
         _magnetFieldTrigger.radius = _magnetRadius;
         _magnetFieldVisual.localScale = _magnetFieldTrigger.radius * 2 * Vector3.one;
     }
@@ -54,6 +79,7 @@ public class Magnet : MonoBehaviour
     private void Shutdown()
     {
         var waitForShutdown = new WaitForSeconds(_shutdownTime);
+
         StartCoroutine(Delay());
 
         IEnumerator Delay()

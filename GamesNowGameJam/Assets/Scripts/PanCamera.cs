@@ -10,9 +10,9 @@ using UnityEngine.InputSystem;
 public class PanCamera : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private InputAction panAction,zoomAction;
-    private bool _isPaning,_lockZoom,_canPan;
-    private Vector2 mouseStartPos,mouseDelta,cameraStartPos;
+    private InputAction panAction, zoomAction;
+    private bool _isPaning, _lockZoom, _canPan;
+    private Vector2 mouseStartPos, mouseDelta, cameraStartPos;
     [SerializeField]
     private float mouseDivisor = 10f;
     [SerializeField]
@@ -37,19 +37,19 @@ public class PanCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_lockZoom)
+        if (!_lockZoom)
         {
-            float zoomChange = zoomAction.ReadValue<float>()/zoomDivisor;
+            float zoomChange = zoomAction.ReadValue<float>() / zoomDivisor;
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - zoomChange, minClamp, maxClamp);
         }
 
         if (_isPaning && _canPan)
-        {            
+        {
             mouseDelta = Mouse.current.position.ReadValue() - mouseStartPos;
-            Vector3 cameraPos = cameraStartPos + mouseDelta/(mouseDivisor- Camera.main.orthographicSize);
+            Vector3 cameraPos = cameraStartPos + mouseDelta / (mouseDivisor - Camera.main.orthographicSize);
             Camera.main.transform.position = new Vector3(cameraPos.x, cameraPos.y, -10);
         }
-        if(DOTween.IsTweening(Camera.main.transform) && Pallet.activeSelf)
+        if (DOTween.IsTweening(Camera.main.transform) && Pallet.activeSelf)
         {
             Pallet.SetActive(false);
         }
@@ -62,7 +62,7 @@ public class PanCamera : MonoBehaviour
     void PanButtonDown()
     {
         _isPaning = true;
-        cameraStartPos=Camera.main.transform.position;
+        cameraStartPos = Camera.main.transform.position;
         mouseStartPos = Mouse.current.position.ReadValue();
     }
     void PanButtonUp()
@@ -92,6 +92,8 @@ public class PanCamera : MonoBehaviour
 
     public void MoveAndZoomToTarget(Vector2 targetPosition)
     {
+        if (!_canPan) return;
+
         Camera camera = Camera.main;
         camera.transform.position = storedPosition;
         Vector3 realTarget = new Vector3(targetPosition.x, targetPosition.y, -10f) + offset;

@@ -1,8 +1,9 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
 [SelectionBase]
-public class Claw : MonoBehaviour
+public class Claw : Gadget
 {
     [SerializeField] private Transform _claw;
     [SerializeField] private BoxCollider2D _boxCollider;
@@ -21,6 +22,26 @@ public class Claw : MonoBehaviour
 
     private Tween _pillarTween;
     private Vector2 _pillarDefaultSize;
+
+    public override string GadgetName => "Claw";
+
+    public override string FirstParametreName => string.Empty;
+
+    public override string SecondParametreName => string.Empty;
+
+    public override float FirstMinimumParametreValue => throw new NotImplementedException();
+
+    public override float FirstMaximumParametreValue => throw new NotImplementedException();
+
+    public override float SecondMinimumParametreValue => throw new NotImplementedException();
+
+    public override float SecondMaxParametreValue => throw new NotImplementedException();
+
+    public override Action<float> FirstParametreMethod => throw new NotImplementedException();
+
+    public override Action<float> SecondParametreMethod => throw new NotImplementedException();
+
+    public override bool HasSecondParametre => false;
 
     private void Start()
     {

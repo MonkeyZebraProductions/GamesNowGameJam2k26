@@ -1,22 +1,49 @@
-using TMPro;
 using UnityEngine;
 
-public class GadgetParametreWindow : MonoBehaviour
+public class GadgetParametreWindow : GadgetWindow
 {
-    [SerializeField] private Spring _spring;
-    [SerializeField] private Handwheel _handwheel;
-    [SerializeField] private TMP_Text _textRef;
+    [SerializeField] private bool _modifySecondParametreInstead;
 
-    private void Start()
+    protected override void UpdateText(float value)
     {
-        _handwheel.OnValueChanged += RotateGadget;
+        value = Mathf.Floor(value);
+
+        var parametreName = !_modifySecondParametreInstead ? _gadget.FirstParametreName : _gadget.SecondParametreName;
+
+        _textRef.SetText($"{parametreName}: {value}");
     }
 
-    private void RotateGadget(float value, bool isIncreased)
+    public override void Initialize(Gadget gadget)
     {
-        var rotation = new Vector3(0, 0, -value);
-        _spring.transform.localEulerAngles = rotation;
+        _gadget = gadget;
 
+        if (string.IsNullOrEmpty(gadget.FirstParametreName))
+        {
+            gameObject.SetActive(false);
+
+            return;
+        }
+
+        if (!gadget.HasSecondParametre && _modifySecondParametreInstead)
+        {
+            gameObject.SetActive(false);
+        }
+
+        _handwheel.ResetSubscriptions();
+
+        if (!_modifySecondParametreInstead)
+        {
+            _handwheel.OnValueChanged += _gadget.FirstParametreMethod;
+            UpdateText(_gadget.FirstMinimumParametreValue);
+            _handwheel.Initialize(_gadget.FirstMinimumParametreValue, _gadget.FirstMaximumParametreValue);
+        }
+        else
+        {
+            _handwheel.OnValueChanged += _gadget.SecondParametreMethod;
+            UpdateText(_gadget.SecondMinimumParametreValue);
+            _handwheel.Initialize(_gadget.SecondMinimumParametreValue, _gadget.SecondMaxParametreValue);
+        }
+
+        _handwheel.OnValueChanged += UpdateText;
     }
-
 }

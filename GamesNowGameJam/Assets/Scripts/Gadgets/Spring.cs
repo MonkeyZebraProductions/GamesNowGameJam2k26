@@ -5,15 +5,32 @@ using UnityEngine;
 [SelectionBase]
 public abstract class Gadget : MonoBehaviour
 {
+    protected bool _placed = false;
+
+    public abstract string GadgetName { get; }
+
     public abstract string FirstParametreName { get; }
     public abstract string SecondParametreName { get; }
 
-    public Action<float> FirstParametreMethod;
-    public Action<float> SecondParametreMethod;
+    public abstract float FirstMinimumParametreValue { get; }
+    public abstract float FirstMaximumParametreValue { get; }
+    public abstract float SecondMinimumParametreValue { get; }
+    public abstract float SecondMaxParametreValue { get; }
+
+    public abstract Action<float> FirstParametreMethod { get; }
+    public abstract Action<float> SecondParametreMethod { get; }
+
+    public abstract bool HasSecondParametre { get; }
+    public bool Placed => _placed;
+
+    public void Place()
+    {
+        _placed = true;
+    }
 }
 
 
-public class Spring : MonoBehaviour
+public class Spring : Gadget
 {
     [Header("REFERENCES")]
     [SerializeField] private Transform _platform;
@@ -32,9 +49,26 @@ public class Spring : MonoBehaviour
 
     private Tween _springTween;
 
-    public float DefaultSpringPower => _defaultSpringPower;
 
-    public float CurrentSpringPower => _currentSpringPower;
+    //Power
+    public override string FirstParametreName => "Power";
+    public override Action<float> FirstParametreMethod => SetSpringPower;
+
+
+    public override string SecondParametreName => string.Empty;
+    public override Action<float> SecondParametreMethod => null;
+
+    public override float FirstMinimumParametreValue => _defaultSpringPower;
+
+    public override float SecondMinimumParametreValue => -999;
+
+    public override float FirstMaximumParametreValue => 35; // do with ScriptableObjects;
+
+    public override float SecondMaxParametreValue => 999; // do with ScriptableObjects
+
+    public override bool HasSecondParametre => false;
+
+    public override string GadgetName => "Spring";
 
     void Awake()
     {
@@ -43,6 +77,8 @@ public class Spring : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!Placed) return;
+
         if (other.TryGetComponent<Rigidbody2D>(out var part))
         {
             PushPart(part);
@@ -90,6 +126,8 @@ public class Spring : MonoBehaviour
 
     public void SetSpringPower(float power)
     {
+        power = Mathf.Floor(power);
         _currentSpringPower = power;
     }
+
 }

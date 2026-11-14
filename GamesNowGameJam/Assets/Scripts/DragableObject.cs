@@ -21,11 +21,11 @@ public class DragableObject : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(!spawned)
+        if (!spawned)
         {
             mouseOffset = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
         }
-        
+
     }
 
     private void Update()
@@ -40,15 +40,17 @@ public class DragableObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(!DOTween.IsTweening(pallet.transform))
+        return;
+
+        if (!DOTween.IsTweening(pallet.transform))
         {
-            if(!_zoomedIn)
+            if (!_zoomedIn)
             {
                 panCamera.MoveAndZoomToTarget(transform.position);
             }
             else
             {
-                panCamera.ZoomOutOfTarget(); 
+                panCamera.ZoomOutOfTarget();
             }
             _zoomedIn = !_zoomedIn;
 
@@ -60,6 +62,6 @@ public class DragableObject : MonoBehaviour
     //    transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x - mouseOffset.x, 
     //        Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y-mouseOffset.y,
     //        0);
-        
+
     //}
 }

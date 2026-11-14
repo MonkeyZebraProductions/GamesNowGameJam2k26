@@ -13,7 +13,7 @@ public class Handwheel : MonoBehaviour, IPointerDownHandler, IDragHandler
     [SerializeField] private float _maxValue = 100f;
     [SerializeField] private float _value;
 
-    public event Action<float, bool> OnValueChanged;
+    public event Action<float> OnValueChanged;
 
     public float Value => _value;
 
@@ -36,10 +36,8 @@ public class Handwheel : MonoBehaviour, IPointerDownHandler, IDragHandler
             _minValue,
             _maxValue);
 
-        // Calculate the actual value change after clamping.
         float actualValueChange = newValue - _value;
 
-        // Convert the actual value change back into rotation.
         float actualRotation = -actualValueChange / 0.1f;
 
         _value = newValue;
@@ -50,8 +48,7 @@ public class Handwheel : MonoBehaviour, IPointerDownHandler, IDragHandler
 
         _previousAngle = currentAngle;
 
-
-        OnValueChanged?.Invoke(_value, isIncreased);
+        OnValueChanged?.Invoke(_value);
     }
 
     private float GetPointerAngle(PointerEventData eventData)
@@ -64,8 +61,15 @@ public class Handwheel : MonoBehaviour, IPointerDownHandler, IDragHandler
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 
-    public void Initialize(float startingValue)
+    public void Initialize(float minValue, float maxValue)
     {
-        _value = startingValue;
+        _value = minValue;
+        _minValue = minValue;
+        _maxValue = maxValue;
+    }
+
+    public void ResetSubscriptions()
+    {
+        OnValueChanged = null;
     }
 }

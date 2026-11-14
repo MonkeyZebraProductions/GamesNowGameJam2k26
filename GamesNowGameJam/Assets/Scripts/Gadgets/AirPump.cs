@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [SelectionBase]
-public class AirPump : MonoBehaviour
+public class AirPump : Gadget
 {
     [SerializeField] private float _pumpInterval = 1;
     [SerializeField] private float _pumpWorkingTime = 2;
@@ -15,12 +16,38 @@ public class AirPump : MonoBehaviour
     private WaitForSeconds _waitForPumpInterval;
     private WaitForSeconds _waitForPumpWorking;
 
+    public override string FirstParametreName => "Interval";
+
+    public override float FirstMinimumParametreValue => 1f;
+    public override float FirstMaximumParametreValue => 2f;
+    public override Action<float> FirstParametreMethod => ChangeInterval;
+
+
+    public override string SecondParametreName => string.Empty;
+
+    public override float SecondMinimumParametreValue => -999;
+
+    public override float SecondMaxParametreValue => 999;
+
+
+    public override Action<float> SecondParametreMethod => null;
+
+    public override bool HasSecondParametre => false;
+    public override string GadgetName => "AirPump";
+
+
     void Start()
     {
         _waitForPumpInterval = new(_pumpInterval);
         _waitForPumpWorking = new(_pumpWorkingTime);
 
         StartCoroutine(PumpCoroutine());
+    }
+
+    private void ChangeInterval(float value)
+    {
+        _pumpInterval = value;
+        _waitForPumpInterval = new(_pumpInterval);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

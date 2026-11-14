@@ -2,20 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SpawnGadget : MonoBehaviour, IPointerDownHandler,IPointerUpHandler
+public class SpawnGadget : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
-    private GameObject gadgetToSpawn;
-    private GameObject gadget;
+    private Gadget gadgetToSpawn;
+    private Gadget spawnedGadget;
     private GadgetPallet gadgetPallet;
     private void Start()
     {
-        gadgetPallet=GetComponentInParent<GadgetPallet>();
+        gadgetPallet = GetComponentInParent<GadgetPallet>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        gadget = Instantiate(gadgetToSpawn,transform.position,Quaternion.identity);
-        gadget.GetComponent<DragableObject>().pallet = gadgetPallet.gameObject;
+        spawnedGadget = Instantiate(gadgetToSpawn, transform.position, Quaternion.identity);
+        spawnedGadget.GetComponent<DragableObject>().pallet = gadgetPallet.gameObject;
         gadgetPallet.OpenClosePallet();
     }
 
@@ -23,6 +23,10 @@ public class SpawnGadget : MonoBehaviour, IPointerDownHandler,IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         Debug.Log("PointerUp");
-        if (gadget != null && gadget.GetComponent<DragableObject>() != null) { gadget.GetComponent<DragableObject>().enabled = false; }
+        if (spawnedGadget != null && spawnedGadget.GetComponent<DragableObject>() != null)
+        {
+            spawnedGadget.Place();
+            spawnedGadget.GetComponent<DragableObject>().enabled = false;
+        }
     }
 }
