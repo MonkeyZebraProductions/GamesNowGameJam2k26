@@ -15,6 +15,7 @@ public class SpawnGadget : MonoBehaviour, IPointerDownHandler,IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         gadget = Instantiate(gadgetToSpawn,transform.position,Quaternion.identity);
+        gadget.GetComponent<DragableObject>().pallet = gadgetPallet.gameObject;
         gadgetPallet.OpenClosePallet();
     }
 
@@ -22,6 +23,6 @@ public class SpawnGadget : MonoBehaviour, IPointerDownHandler,IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         Debug.Log("PointerUp");
-        if (gadget != null) { gadget.GetComponent<DragableObject>().enabled = false; }
+        if (gadget != null && gadget.GetComponent<DragableObject>() != null) { gadget.GetComponent<DragableObject>().enabled = false; }
     }
 }

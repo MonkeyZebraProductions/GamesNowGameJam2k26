@@ -20,6 +20,8 @@ public class Part : MonoBehaviour
     public bool _isFeuled;
     [HideInInspector]
     public bool _isColoured;
+    [HideInInspector]
+    public bool _isFilled;
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

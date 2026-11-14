@@ -166,7 +166,7 @@ public class BaseZone : MonoBehaviour
                     break;
                 }
             case PartType.Wheel:
-                if(CurrentCar.requiredWheels < 4)
+                if(CurrentCar.requiredWheels < 4 && part._isFilled)
                 {
                     AllCarParts.Add(containedObject);
                     CurrentCar.requiredWheels++;

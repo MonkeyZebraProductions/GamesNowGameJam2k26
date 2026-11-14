@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,18 @@ public class DragableObject : MonoBehaviour
 {
 
     private Vector3 mouseOffset;
-    [HideInInspector]
+    //[HideInInspector]
     public bool spawned;
+    private PanCamera panCamera;
+
+    private bool _zoomedIn;
+
+    [HideInInspector]
+    public GameObject pallet;
+    private void Start()
+    {
+        panCamera = FindAnyObjectByType<PanCamera>();
+    }
 
     private void OnMouseEnter()
     {
@@ -29,14 +40,26 @@ public class DragableObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        mouseOffset = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
+        if(!DOTween.IsTweening(pallet.transform))
+        {
+            if(!_zoomedIn)
+            {
+                panCamera.MoveAndZoomToTarget(transform.position);
+            }
+            else
+            {
+                panCamera.ZoomOutOfTarget(); 
+            }
+            _zoomedIn = !_zoomedIn;
+
+        }
     }
 
-    private void OnMouseDrag()
-    {
-        transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x - mouseOffset.x, 
-            Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y-mouseOffset.y,
-            0);
+    //private void OnMouseDrag()
+    //{
+    //    transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x - mouseOffset.x, 
+    //        Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y-mouseOffset.y,
+    //        0);
         
-    }
+    //}
 }
