@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
+[SelectionBase]
 public class Claw : MonoBehaviour
 {
     [SerializeField] private Transform _claw;
@@ -99,7 +100,6 @@ public class Claw : MonoBehaviour
     {
         var maxExtend = _boxCollider.bounds.max.y;
         var time = _maxExtendTime * height / maxExtend;
-        Debug.Log($"Time:{time}(Unclampped)");
         time = Mathf.Clamp(time, _minExtendTime, _maxExtendTime);
         return time;
     }
