@@ -10,13 +10,13 @@ public record Car
     public int requiredWheels;
     public bool fullEngine;
     public bool colouredCar;
-    public Color requiredCarColour; 
+    public Color requiredCarColour;
 }
 
 public class BaseZone : MonoBehaviour
 {
 
-    [Range(0f,5f)]
+    [Range(0f, 5f)]
     public float ExecutionTime;
     [SerializeField]
     private EntryPoint[] EntryPoints;
@@ -55,7 +55,7 @@ public class BaseZone : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         foreach (var entryPoint in EntryPoints)
         {
-            if(entryPoint.gameObject.activeSelf)
+            if (entryPoint.gameObject.activeSelf)
             {
                 entryPoint.TriggerEnter += PutInZone;
                 break;
@@ -63,7 +63,7 @@ public class BaseZone : MonoBehaviour
         }
         foreach (var exitPoint in ExitPoints)
         {
-            if(exitPoint.gameObject.activeSelf)
+            if (exitPoint.gameObject.activeSelf)
             {
                 ActiveExitPoint = exitPoint;
                 break;
@@ -74,18 +74,18 @@ public class BaseZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-   private void PutInZone(GameObject go,Rigidbody2D rb2D)
+    private void PutInZone(GameObject go, Rigidbody2D rb2D)
     {
         containedObject = go;
         containedRB2D = rb2D;
-        containedRB2D.linearVelocity = Vector3.zero;
-        
-        containedObject.transform.position = GetRandomPointInCollider(boxCollider2D,1);
-        containedRB2D.useFullKinematicContacts = false;
-        if(ExecutionTime!=0)
+        //containedRB2D.linearVelocity = Vector3.zero;
+
+        //containedObject.transform.position = GetRandomPointInCollider(boxCollider2D,1);
+        //containedRB2D.useFullKinematicContacts = false;
+        if (ExecutionTime != 0)
         {
             CallAfterDelay.Create(ExecutionTime, () => { EventExecute(); });
         }
@@ -105,11 +105,11 @@ public class BaseZone : MonoBehaviour
     private void EventExecute()
     {
         ExecutionEvent?.Invoke();
-        if(ActiveExitPoint != null)
+        if (ActiveExitPoint != null)
         {
             Vector2 forceDirection = ActiveExitPoint.position - ExecutionPosition.position;
-            containedRB2D.MovePosition(ActiveExitPoint.position);
-            containedRB2D.AddForce(forceDirection.normalized*launchForce,ForceMode2D.Impulse);
+            containedRB2D.transform.position = ActiveExitPoint.position;
+            //containedRB2D.AddForce(forceDirection.normalized * launchForce, ForceMode2D.Impulse);
         }
         containedRB2D.useFullKinematicContacts = true;
     }
@@ -178,7 +178,7 @@ public class BaseZone : MonoBehaviour
                     break;
                 }
             case PartType.Wheel:
-                if(CurrentCar.requiredWheels < 4 && part._isFilled)
+                if (CurrentCar.requiredWheels < 4 && part._isFilled)
                 {
                     AllCarParts.Add(containedObject);
                     CurrentCar.requiredWheels++;

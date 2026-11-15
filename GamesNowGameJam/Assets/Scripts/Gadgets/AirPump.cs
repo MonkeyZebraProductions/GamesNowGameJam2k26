@@ -63,6 +63,8 @@ public class AirPump : Gadget
             {
                 component.ResetVelocity();
             }
+
+            component.TryFill();
         }
     }
 
@@ -76,8 +78,6 @@ public class AirPump : Gadget
             var force = direction * Mathf.Abs(_pumpPower);
 
             component.Push(force, ForceMode2D.Force);
-
-
         }
     }
 

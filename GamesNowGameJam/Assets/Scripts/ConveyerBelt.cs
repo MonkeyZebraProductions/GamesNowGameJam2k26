@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class ConveyerBelt : MonoBehaviour
 {
     [SerializeField] private bool moveLeft;

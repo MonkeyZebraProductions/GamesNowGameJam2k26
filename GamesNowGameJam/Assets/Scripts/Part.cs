@@ -7,6 +7,7 @@ public enum PartType
     Chasis
 }
 
+[SelectionBase]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Part : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Part : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField] private float minDamageSpeed = 5;
     [HideInInspector] public bool _isFeuled;
+    public SpriteRenderer _filledWheelSprite;
     public bool _isColoured;
     public bool _isFilled;
 
@@ -52,9 +54,12 @@ public class Part : MonoBehaviour
     public void ColourCar(Color color)
     {
         Debug.Log("Color");
-        _isColoured = true;
-        CurrentColor = color;
+
+        if (partType != PartType.Chasis) return;
+
         spriteRenderer.color = color;
+        CurrentColor = color;
+        _isColoured = true;
     }
 
     public void ResetVelocity()
@@ -72,5 +77,13 @@ public class Part : MonoBehaviour
         if (partType != PartType.Wheel) return;
 
         _isFilled = true;
+
+        spriteRenderer.gameObject.SetActive(false);
+        _filledWheelSprite.gameObject.SetActive(true);
+    }
+
+    public void TryColor(Color color)
+    {
+
     }
 }

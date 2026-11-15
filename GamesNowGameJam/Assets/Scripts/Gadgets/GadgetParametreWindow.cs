@@ -31,6 +31,8 @@ public class GadgetParametreWindow : GadgetWindow
             return;
         }
 
+        gameObject.SetActive(true);
+
         _handwheel.ResetSubscriptions();
 
         if (!_modifySecondParametreInstead)
