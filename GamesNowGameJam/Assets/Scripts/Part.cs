@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PartType
@@ -12,7 +11,6 @@ public class Part : MonoBehaviour
     public PartType partType;
     public float Health = 100;
     public Color CurrentColor;
-    [HideInInspector]
     public SpriteRenderer spriteRenderer;
     [SerializeField]
     private float minDamageSpeed = 5;
@@ -24,7 +22,6 @@ public class Part : MonoBehaviour
     public bool _isFilled;
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         CurrentColor = spriteRenderer.color;
     }
 
@@ -33,13 +30,13 @@ public class Part : MonoBehaviour
         // Get the impact speed between the two objects
         float impactSpeed = collision.relativeVelocity.magnitude;
 
-        if(impactSpeed > minDamageSpeed)
+        if (impactSpeed > minDamageSpeed)
         {
-            Health-=impactSpeed;
+            Health -= impactSpeed;
         }
         Debug.Log(Health);
 
-        if(Health < 0)
+        if (Health < 0)
         {
             Destroy(gameObject);
         }
@@ -52,6 +49,4 @@ public class Part : MonoBehaviour
         CurrentColor = color;
         spriteRenderer.color = color;
     }
-
-    //public void
 }

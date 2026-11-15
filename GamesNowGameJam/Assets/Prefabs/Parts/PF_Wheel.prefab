@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8168568632934804560}
   - component: {fileID: 6202822873925226286}
   - component: {fileID: 2386151203103702847}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: PF_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1.2
 --- !u!50 &6202822873925226286
 Rigidbody2D:
   serializedVersion: 5
@@ -113,7 +113,7 @@ MonoBehaviour:
   partType: 0
   Health: 100
   CurrentColor: {r: 1, g: 0.87773234, b: 0, a: 1}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 4105834662536891993}
   minDamageSpeed: 5
   _isFeuled: 0
   _isColoured: 0
@@ -145,7 +145,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.24280514, y: 0.24280514, z: 0.24280514}
+  m_LocalScale: {x: 0.53186464, y: 0.53186464, z: 0.53186464}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1407624476284537190}
