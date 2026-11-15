@@ -49,6 +49,9 @@ public class BaseZone : MonoBehaviour
 
     private List<GameObject> AllCarParts = new List<GameObject>();
     private BoxCollider2D boxCollider2D;
+
+
+    private CallAfterDelay callAfterDelay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -79,15 +82,22 @@ public class BaseZone : MonoBehaviour
 
     private void PutInZone(GameObject go, Rigidbody2D rb2D)
     {
+
         containedObject = go;
         containedRB2D = rb2D;
+
+        if (containedObject == null) return;
+
         //containedRB2D.linearVelocity = Vector3.zero;
 
         //containedObject.transform.position = GetRandomPointInCollider(boxCollider2D,1);
         //containedRB2D.useFullKinematicContacts = false;
         if (ExecutionTime != 0)
         {
-            CallAfterDelay.Create(ExecutionTime, () => { EventExecute(); });
+            callAfterDelay = CallAfterDelay.Create(ExecutionTime, () =>
+            {
+                EventExecute();
+            });
         }
         else
         {
@@ -104,6 +114,8 @@ public class BaseZone : MonoBehaviour
 
     private void EventExecute()
     {
+        if (containedObject == null) return;
+
         ExecutionEvent?.Invoke();
         if (ActiveExitPoint != null)
         {
@@ -116,6 +128,8 @@ public class BaseZone : MonoBehaviour
 
     public void ColourCar()
     {
+        if (containedObject == null) return;
+
         Part part = containedObject.GetComponent<Part>();
         if (part != null && part.partType == PartType.Chasis)
         {
@@ -131,6 +145,8 @@ public class BaseZone : MonoBehaviour
 
     public void FillEngine()
     {
+        if (containedObject == null) return;
+
         Part part = containedObject.GetComponent<Part>();
         if (part != null && part.partType == PartType.Engine)
         {
@@ -145,7 +161,10 @@ public class BaseZone : MonoBehaviour
 
     public void AddToCompletion()
     {
+        if (containedObject == null) return;
+
         Part part = containedObject.GetComponent<Part>();
+
         switch (part.partType)
         {
             case PartType.Engine:
@@ -192,11 +211,14 @@ public class BaseZone : MonoBehaviour
                     break;
                 }
         }
+
+
         if (CurrentCar == CarRecepie)
         {
             Debug.Log("Winner");
             money.Add(1000);
             CurrentCar = BaseCar;
+
             foreach (GameObject carPart in AllCarParts)
             {
                 Destroy(carPart);

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 public class CallAfterDelay : MonoBehaviour
 {
     float delay;
@@ -20,7 +19,12 @@ public class CallAfterDelay : MonoBehaviour
     {
         if (age > delay)
         {
+            if (action == null) return;
+
             action();
+
+            if (gameObject == null) return;
+
             Destroy(gameObject);
         }
     }

@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: ExecutionTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 149419517830271696, guid: ac64ce6f845c8c74782b7f01e142f7ca, type: 3}
+      propertyPath: m_text
+      value: COLOR ZONE
+      objectReference: {fileID: 0}
     - target: {fileID: 1648616849875367660, guid: ac64ce6f845c8c74782b7f01e142f7ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1
