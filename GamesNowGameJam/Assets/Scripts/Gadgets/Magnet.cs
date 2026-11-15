@@ -29,6 +29,10 @@ public class Magnet : Gadget
     public override bool HasSecondParametre => true;
     public override string GadgetName => "Magnet";
 
+
+    public override float FirstParametreValue => _magnetPower;
+    public override float SecondParametreValue => _magnetRadius;
+
     private void Awake()
     {
         _magnetFieldTrigger.radius = _magnetRadius;
@@ -50,6 +54,8 @@ public class Magnet : Gadget
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        if (!_placed) return;
+
         if (_active && collision.TryGetComponent<Rigidbody2D>(out var component))
         {
             var center = transform.position;

@@ -12,8 +12,11 @@ public abstract class Gadget : MonoBehaviour
     public abstract string FirstParametreName { get; }
     public abstract string SecondParametreName { get; }
 
+    public abstract float FirstParametreValue { get; }
     public abstract float FirstMinimumParametreValue { get; }
     public abstract float FirstMaximumParametreValue { get; }
+
+    public abstract float SecondParametreValue { get; }
     public abstract float SecondMinimumParametreValue { get; }
     public abstract float SecondMaxParametreValue { get; }
 
@@ -70,6 +73,10 @@ public class Spring : Gadget
 
     public override string GadgetName => "Spring";
 
+    public override float FirstParametreValue => _currentSpringPower;
+
+    public override float SecondParametreValue => throw new NotImplementedException();
+
     void Awake()
     {
         SetSpringPower(_defaultSpringPower);
@@ -77,7 +84,7 @@ public class Spring : Gadget
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!Placed) return;
+        if (!_placed) return;
 
         if (other.TryGetComponent<Rigidbody2D>(out var part))
         {

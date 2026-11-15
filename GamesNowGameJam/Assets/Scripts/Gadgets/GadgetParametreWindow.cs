@@ -27,6 +27,8 @@ public class GadgetParametreWindow : GadgetWindow
         if (!gadget.HasSecondParametre && _modifySecondParametreInstead)
         {
             gameObject.SetActive(false);
+
+            return;
         }
 
         _handwheel.ResetSubscriptions();
@@ -35,13 +37,13 @@ public class GadgetParametreWindow : GadgetWindow
         {
             _handwheel.OnValueChanged += _gadget.FirstParametreMethod;
             UpdateText(_gadget.FirstMinimumParametreValue);
-            _handwheel.Initialize(_gadget.FirstMinimumParametreValue, _gadget.FirstMaximumParametreValue);
+            _handwheel.Initialize(_gadget.FirstParametreValue, _gadget.FirstMinimumParametreValue, _gadget.FirstMaximumParametreValue);
         }
         else
         {
             _handwheel.OnValueChanged += _gadget.SecondParametreMethod;
             UpdateText(_gadget.SecondMinimumParametreValue);
-            _handwheel.Initialize(_gadget.SecondMinimumParametreValue, _gadget.SecondMaxParametreValue);
+            _handwheel.Initialize(_gadget.SecondParametreValue, _gadget.SecondMinimumParametreValue, _gadget.SecondMaxParametreValue);
         }
 
         _handwheel.OnValueChanged += UpdateText;

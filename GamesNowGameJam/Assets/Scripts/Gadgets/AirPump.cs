@@ -35,6 +35,9 @@ public class AirPump : Gadget
     public override bool HasSecondParametre => false;
     public override string GadgetName => "AirPump";
 
+    public override float FirstParametreValue => _pumpInterval;
+
+    public override float SecondParametreValue => throw new NotImplementedException();
 
     void Start()
     {
@@ -52,6 +55,8 @@ public class AirPump : Gadget
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!_placed) return;
+
         if (collision.TryGetComponent<Rigidbody2D>(out var component))
         {
             if (_resetsVelocity)
@@ -63,6 +68,8 @@ public class AirPump : Gadget
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        if (!_placed) return;
+
         if (collision.TryGetComponent<Rigidbody2D>(out var component))
         {
             var direction = transform.up;
@@ -74,6 +81,8 @@ public class AirPump : Gadget
 
     private IEnumerator PumpCoroutine()
     {
+        yield return new WaitUntil(() => _placed);
+
         yield return _waitForPumpInterval;
 
         Activate();

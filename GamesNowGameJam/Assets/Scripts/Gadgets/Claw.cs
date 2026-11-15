@@ -43,6 +43,10 @@ public class Claw : Gadget
 
     public override bool HasSecondParametre => false;
 
+    public override float FirstParametreValue => throw new NotImplementedException();
+
+    public override float SecondParametreValue => throw new NotImplementedException();
+
     private void Start()
     {
         _clawDefaultYPosition = _claw.localPosition.y;
@@ -52,12 +56,14 @@ public class Claw : Gadget
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!_placed) return;
+
         if (collision.TryGetComponent<Rigidbody2D>(out var component) && !_active)
         {
-
             if (component.gravityScale == 0) return;
 
             var part = component.transform;
+            component.totalTorque = 0f;
 
             part.SetParent(transform, true);
             var maxReach = part.localPosition.y;
@@ -97,7 +103,7 @@ public class Claw : Gadget
 
 
         _caughtPart.linearVelocity = Vector2.zero;
-        _caughtPart.gravityScale = 0;
+        _caughtPart.gravityScale = 0f;
 
         _caughtPart.transform.parent = _claw;
 

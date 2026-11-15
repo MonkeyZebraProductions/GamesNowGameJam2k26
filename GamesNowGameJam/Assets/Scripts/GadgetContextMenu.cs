@@ -57,7 +57,6 @@ public class GadgetContextMenu : MonoBehaviour
 
         ShowPanel();
 
-
         foreach (var window in _windows)
         {
             window.Initialize(gadget);

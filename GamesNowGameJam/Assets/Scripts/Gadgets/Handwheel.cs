@@ -61,9 +61,11 @@ public class Handwheel : MonoBehaviour, IPointerDownHandler, IDragHandler
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 
-    public void Initialize(float minValue, float maxValue)
+    public void Initialize(float startingValue, float minValue, float maxValue)
     {
-        _value = minValue;
+        startingValue = Mathf.Clamp(startingValue, minValue, maxValue);
+
+        _value = startingValue;
         _minValue = minValue;
         _maxValue = maxValue;
     }
