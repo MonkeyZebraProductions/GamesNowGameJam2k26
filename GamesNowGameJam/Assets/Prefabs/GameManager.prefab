@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 191451745196475585}
   - component: {fileID: 3457897375888491126}
   - component: {fileID: 8367681757020774135}
+  - component: {fileID: 1520272476471280601}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -94,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155f24d315b8bcd41a2194f667241eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  effectsVolume: 1
-  musicVolume: 1
+  effectsVolume: 0.588
+  musicVolume: 0.28
   sounds:
   - clipName: music
     clip: {fileID: 8300000, guid: b81043589de21e041a4e3a0c907c5ad0, type: 3}
@@ -109,7 +110,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 741d913630ffc334b86a2f6b657f704d, type: 3}
     isMusic: 0
     threeD: 0
-    mute: 0
+    mute: 1
     loop: 1
     ignorePause: 0
     source: {fileID: 0}
@@ -161,3 +162,31 @@ MonoBehaviour:
     loop: 0
     ignorePause: 0
     source: {fileID: 0}
+  - clipName: break
+    clip: {fileID: 8300000, guid: cb24e6f2aac483f499cb58a80449ab3e, type: 3}
+    isMusic: 0
+    threeD: 0
+    mute: 0
+    loop: 0
+    ignorePause: 0
+    source: {fileID: 0}
+  - clipName: press
+    clip: {fileID: 8300000, guid: 51fc0712237920b4b81a0ba139c674a2, type: 3}
+    isMusic: 0
+    threeD: 0
+    mute: 0
+    loop: 0
+    ignorePause: 0
+    source: {fileID: 0}
+--- !u!114 &1520272476471280601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857696530973358799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d75db7cce154f4d989e222e39491c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartLoopingAudio

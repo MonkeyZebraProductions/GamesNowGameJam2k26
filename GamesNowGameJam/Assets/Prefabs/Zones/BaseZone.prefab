@@ -1705,7 +1705,7 @@ MonoBehaviour:
   destroyAmount: 50
   CarRecepie:
     requiredWheels: 4
-    fullEngine: 1
+    fullEngine: 0
     colouredCar: 1
     requiredCarColour: {r: 0.9921569, g: 0.68235296, b: 0, a: 1}
 --- !u!1 &7666102227062874393
