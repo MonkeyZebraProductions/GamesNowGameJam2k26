@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,7 @@ public class GadgetContextMenu : MonoBehaviour
     [SerializeField] private Button _sellButton;
     [SerializeField] private Button _closeButton;
 
-    //[SerializeField] private LayerMask _layerMask;
+    [SerializeField] private LayerMask _layerMask;
 
     [SerializeField] private GadgetWindow[] _windows;
 
@@ -31,7 +30,7 @@ public class GadgetContextMenu : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, 1000);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, 1000, _layerMask);
 
             if (hit.collider == null) return;
 

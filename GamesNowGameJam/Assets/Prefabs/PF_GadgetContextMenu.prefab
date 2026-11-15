@@ -1201,6 +1201,9 @@ MonoBehaviour:
   _titleTextRef: {fileID: 5906378619539919995}
   _sellButton: {fileID: 6464639711095398693}
   _closeButton: {fileID: 4415967548781066995}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
   _windows:
   - {fileID: 3426380615467978299}
   - {fileID: 2548307703640260076}

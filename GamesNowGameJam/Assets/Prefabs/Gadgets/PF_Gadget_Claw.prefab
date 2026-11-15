@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 891156159808499534}
   - component: {fileID: 4507465135415925239}
   - component: {fileID: 5035177704174927772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SelectionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2603e87aeb7a548ab407504cd45001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Claw
+  _placed: 0
   _claw: {fileID: 3621335444805108643}
   _boxCollider: {fileID: 9153655933702622036}
   _pillarRenderer: {fileID: 3482767642849475767}

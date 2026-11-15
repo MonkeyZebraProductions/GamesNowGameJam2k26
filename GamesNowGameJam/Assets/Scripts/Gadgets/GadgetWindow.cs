@@ -25,6 +25,7 @@ public class GadgetWindow : MonoBehaviour
 
         UpdateText(0);
         _handwheel.ResetSubscriptions();
+        _handwheel.Initialize(0, 360);
         _handwheel.OnValueChanged += RotateGadget;
         _handwheel.OnValueChanged += UpdateText;
     }

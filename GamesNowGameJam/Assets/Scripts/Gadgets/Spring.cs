@@ -5,7 +5,7 @@ using UnityEngine;
 [SelectionBase]
 public abstract class Gadget : MonoBehaviour
 {
-    protected bool _placed = false;
+    [SerializeField] protected bool _placed = false;
 
     public abstract string GadgetName { get; }
 
