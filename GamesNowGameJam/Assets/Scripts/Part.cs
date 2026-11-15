@@ -40,7 +40,7 @@ public class Part : MonoBehaviour
 
         if (impactSpeed > minDamageSpeed)
         {
-            Health -= impactSpeed;
+            //Health -= impactSpeed;
         }
 
         Debug.Log(Health);
