@@ -74,11 +74,6 @@ public class BaseZone : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void PutInZone(GameObject go, Rigidbody2D rb2D)
     {
