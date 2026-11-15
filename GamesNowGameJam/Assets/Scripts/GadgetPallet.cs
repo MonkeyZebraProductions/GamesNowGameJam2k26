@@ -18,11 +18,14 @@ public class GadgetPallet : MonoBehaviour
 
     [SerializeField]
     private float tweenTime = 0.3f;
+
+    [HideInInspector]
+    public AudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         palletParent = GetComponent<RectTransform>();
-        
+        audioManager = FindAnyObjectByType<AudioManager>();
         openClosePallet.onClick.AddListener(OpenClosePallet);    
         
         if(panCamera == null)
@@ -40,7 +43,7 @@ public class GadgetPallet : MonoBehaviour
         {
             panCamera.StartCoroutine(panCamera.LockZoom(tweenTime));
         }
-        
+        audioManager.Play("press");
     }
 
 }

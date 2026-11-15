@@ -52,9 +52,12 @@ public class BaseZone : MonoBehaviour
 
 
     private CallAfterDelay callAfterDelay;
+
+    private AudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioManager = FindAnyObjectByType<AudioManager>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         foreach (var entryPoint in EntryPoints)
         {
@@ -128,11 +131,12 @@ public class BaseZone : MonoBehaviour
         Part part = containedObject.GetComponent<Part>();
         if (part != null && part.partType == PartType.Chasis)
         {
-            Debug.Log("Should Color");
+            audioManager.Play("paint");
             part.ColourCar(carColor);
         }
         else
         {
+            audioManager.Play("break");
             //money.Add(-destroyAmount);
             Destroy(containedObject);
         }
@@ -171,6 +175,7 @@ public class BaseZone : MonoBehaviour
                 }
                 else
                 {
+                    audioManager.Play("break");
                     Debug.Log("Should destroy Engine");
                     //money.Add(-destroyAmount);
                     Destroy(containedObject);
@@ -186,6 +191,7 @@ public class BaseZone : MonoBehaviour
                 }
                 else
                 {
+                    audioManager.Play("break");
                     Debug.Log("Should destroy Chasis");
                     //money.Add(-destroyAmount);
                     Destroy(containedObject);
@@ -200,6 +206,7 @@ public class BaseZone : MonoBehaviour
                 }
                 else
                 {
+                    audioManager.Play("break");
                     //money.Add(-destroyAmount);
                     Debug.Log("Should destroy Wheel");
                     Destroy(containedObject);
@@ -213,7 +220,7 @@ public class BaseZone : MonoBehaviour
             Debug.Log("Winner");
             money.Add(1000);
             CurrentCar = BaseCar;
-
+            audioManager.Play("build");
             foreach (GameObject carPart in AllCarParts)
             {
                 Destroy(carPart);

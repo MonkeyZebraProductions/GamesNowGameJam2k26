@@ -81,6 +81,8 @@ public class Claw : Gadget
 
         _active = true;
 
+        _audioManager.Play("claw");
+
         Animate(maxReach, extendTime);
 
         _claw.DOLocalMoveY(maxReach, extendTime).SetEase(Ease.Linear).OnComplete(() =>

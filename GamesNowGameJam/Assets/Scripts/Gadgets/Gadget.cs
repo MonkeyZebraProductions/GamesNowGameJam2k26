@@ -7,6 +7,8 @@ public abstract class Gadget : MonoBehaviour
     [SerializeField] protected int _price = 10;
     [SerializeField] protected bool _placed = false;
 
+    protected AudioManager _audioManager;
+
     public abstract string GadgetName { get; }
 
     public abstract string FirstParametreName { get; }
@@ -28,8 +30,11 @@ public abstract class Gadget : MonoBehaviour
 
     public int Price => _price;
 
+    public AudioManager AudioManager => _audioManager;
+
     public void Place()
     {
         _placed = true;
+        _audioManager = FindAnyObjectByType<AudioManager>();
     }
 }

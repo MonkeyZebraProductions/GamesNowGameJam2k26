@@ -50,6 +50,7 @@ public class GadgetContextMenu : MonoBehaviour
             {
                 Debug.Log("Dont Move Is Tweening");
                 InitializePanel(gadget);
+                _gadgetPallet.audioManager.Play("press");
             }
         }
     }
@@ -82,12 +83,14 @@ public class GadgetContextMenu : MonoBehaviour
         _body.SetActive(false);
 
         _panCamera.ZoomOutOfTarget();
+        _gadgetPallet.audioManager.Play("press");
     }
 
     private void Sell()
     {
         Destroy(_lastSelectedGadget.gameObject);
         money.Add(_lastSelectedGadget.Price);
+        _gadgetPallet.audioManager.Play("break");
         ClosePanel();
     }
 }

@@ -109,7 +109,7 @@ public class AirPump : Gadget
     private void Activate()
     {
         //visuals here
-
+        _audioManager.Play("steam");
         _pumpEffect.gameObject.SetActive(true);
 
         _collider2D.enabled = true;

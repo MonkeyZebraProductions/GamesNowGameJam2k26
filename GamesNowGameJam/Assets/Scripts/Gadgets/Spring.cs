@@ -69,6 +69,7 @@ public class Spring : Gadget
         var upDirection = transform.up;
         var force = upDirection * _currentSpringPower;
         part.Push(force, ForceMode2D.Impulse);
+        _audioManager.Play("spring");
     }
 
     private void Animate()

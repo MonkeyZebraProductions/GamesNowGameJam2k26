@@ -22,6 +22,13 @@ public class PanCamera : MonoBehaviour
     private Vector3 storedPosition;
     [SerializeField]
     private GameObject Pallet;
+    [SerializeField]
+    private BoundingBox boundingBox;
+    private BoxCollider2D boudingCollider;
+    private float minX;
+    private float maxX;
+    private float minY;
+    private float maxY;
     private void Awake()
     {
         //Assigns variables at start of Runtime
@@ -29,6 +36,16 @@ public class PanCamera : MonoBehaviour
         panAction = playerInput.actions["PanCameraButton"];
         zoomAction = playerInput.actions["ZoomCamera"];
         _canPan = true;
+        if(boundingBox == null)
+        {
+            boundingBox = FindAnyObjectByType<BoundingBox>();
+        }
+        boudingCollider = boundingBox.GetComponent<BoxCollider2D>();
+        minX = boudingCollider.bounds.min.x;
+        maxX = boudingCollider.bounds.max.x;
+        minY = boudingCollider.bounds.min.y;
+        maxY = boudingCollider.bounds.max.y;
+
     }
     // Update is called once per frame
     void Update()
@@ -43,7 +60,14 @@ public class PanCamera : MonoBehaviour
         {
             mouseDelta = Mouse.current.position.ReadValue() - mouseStartPos;
             Vector3 cameraPos = cameraStartPos + mouseDelta / (mouseDivisor - Camera.main.orthographicSize);
-            Camera.main.transform.position = new Vector3(cameraPos.x, cameraPos.y, -10);
+            if(WithinBounds(cameraPos))
+            {
+                Camera.main.transform.position = new Vector3(cameraPos.x, cameraPos.y, -10);
+            }
+            else
+            {
+                Debug.Log("Can't move Cam");
+            }
         }
         if (DOTween.IsTweening(Camera.main.transform) && Pallet.activeSelf)
         {
@@ -55,6 +79,12 @@ public class PanCamera : MonoBehaviour
         }
     }
 
+    bool WithinBounds(Vector3 positionToCheck)
+    {
+        var vertExtent = Camera.main.orthographicSize;
+        var horzExtent = vertExtent * Screen.width / Screen.height;
+        return !(positionToCheck.x - horzExtent < minX) && !(positionToCheck.x + horzExtent > maxX) && !(positionToCheck.y - vertExtent < minY) && !(positionToCheck.y + vertExtent > maxY); 
+    }
     void PanButtonDown()
     {
         _isPaning = true;
