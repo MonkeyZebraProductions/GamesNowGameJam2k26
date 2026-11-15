@@ -26,7 +26,7 @@ public abstract class Gadget : MonoBehaviour
     public abstract bool HasSecondParametre { get; }
     public bool Placed => _placed;
 
-    protected int Price => _price;
+    public int Price => _price;
 
     public void Place()
     {
