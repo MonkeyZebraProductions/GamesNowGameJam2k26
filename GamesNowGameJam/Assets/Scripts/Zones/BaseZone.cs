@@ -108,6 +108,7 @@ public class BaseZone : MonoBehaviour
         if(ActiveExitPoint != null)
         {
             Vector2 forceDirection = ActiveExitPoint.position - ExecutionPosition.position;
+            containedRB2D.MovePosition(ActiveExitPoint.position);
             containedRB2D.AddForce(forceDirection.normalized*launchForce,ForceMode2D.Impulse);
         }
         containedRB2D.useFullKinematicContacts = true;
