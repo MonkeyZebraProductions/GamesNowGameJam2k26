@@ -24,6 +24,6 @@ public class ConveyerBelt : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         Rigidbody2D rb2D = collision.rigidbody;
-        rb2D.AddForceX(speed - rb2D.linearVelocityX, ForceMode2D.Impulse);
+        rb2D.AddForceX((moveLeft ? -1 : 1)*(speed - rb2D.linearVelocityX), ForceMode2D.Impulse);
     }
 }
