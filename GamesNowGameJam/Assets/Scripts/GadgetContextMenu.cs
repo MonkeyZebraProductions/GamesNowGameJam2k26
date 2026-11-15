@@ -1,4 +1,6 @@
+using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +18,11 @@ public class GadgetContextMenu : MonoBehaviour
 
     private Gadget _lastSelectedGadget;
     private PanCamera _panCamera;
+    [SerializeField]
+    private GadgetPallet _gadgetPallet;
 
+    [SerializeField]
+    private Resource money;
     private void Awake()
     {
         _sellButton.onClick.AddListener(Sell);
@@ -40,7 +46,11 @@ public class GadgetContextMenu : MonoBehaviour
 
             if (!gadget.Placed) return;
 
-            InitializePanel(gadget);
+            if (_gadgetPallet != null && !DOTween.IsTweening(_gadgetPallet.palletParent && !_gadgetPallet._isOpen))
+            {
+                Debug.Log("Dont Move Is Tweening");
+                InitializePanel(gadget);
+            }
         }
     }
 
@@ -77,6 +87,7 @@ public class GadgetContextMenu : MonoBehaviour
     private void Sell()
     {
         Destroy(_lastSelectedGadget.gameObject);
+        money.Add(_lastSelectedGadget.Price);
         ClosePanel();
     }
 }

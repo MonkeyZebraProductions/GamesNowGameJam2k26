@@ -7,15 +7,23 @@ public class SpawnGadget : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Gadget gadgetToSpawn;
     private Gadget spawnedGadget;
     private GadgetPallet gadgetPallet;
+
+    [SerializeField]
+    private Resource money;
     private void Start()
     {
         gadgetPallet = GetComponentInParent<GadgetPallet>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        spawnedGadget = Instantiate(gadgetToSpawn, transform.position, Quaternion.identity);
-        spawnedGadget.GetComponent<DragableObject>().pallet = gadgetPallet.gameObject;
-        gadgetPallet.OpenClosePallet();
+        if (money.TrySpend(gadgetToSpawn.Price))
+        {
+            spawnedGadget = Instantiate(gadgetToSpawn, transform.position, Quaternion.identity);
+            spawnedGadget.GetComponent<DragableObject>().pallet = gadgetPallet.gameObject;
+            gadgetPallet.OpenClosePallet();
+
+        }
+       
     }
 
 

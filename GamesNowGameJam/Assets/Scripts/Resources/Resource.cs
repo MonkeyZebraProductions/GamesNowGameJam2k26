@@ -16,9 +16,6 @@ public class Resource : ScriptableObject
 
     public void Add(int amount)
     {
-        if (amount <= 0)
-            return;
-
         _amount += amount;
         OnAmountChanged?.Invoke(_amount);
     }

@@ -32,9 +32,16 @@ public class BaseZone : MonoBehaviour
     private Transform ActiveExitPoint;
     [SerializeField]
     private Color carColor;
+
     [SerializeField]
     [Range(2f, 10f)]
     private float launchForce;
+
+    [SerializeField]
+    private Resource money;
+
+    [SerializeField]
+    private int destroyAmount;
 
     public Car CarRecepie;
     private Car BaseCar = new Car();
@@ -116,6 +123,7 @@ public class BaseZone : MonoBehaviour
         }
         else
         {
+            //money.Add(-destroyAmount);
             Destroy(containedObject);
         }
     }
@@ -130,6 +138,7 @@ public class BaseZone : MonoBehaviour
         else
         {
             Destroy(containedObject);
+            //money.Add(-destroyAmount);
         }
     }
 
@@ -148,6 +157,7 @@ public class BaseZone : MonoBehaviour
                 else
                 {
                     Debug.Log("Should destroy Engine");
+                    //money.Add(-destroyAmount);
                     Destroy(containedObject);
                     break;
                 }
@@ -162,6 +172,7 @@ public class BaseZone : MonoBehaviour
                 else
                 {
                     Debug.Log("Should destroy Chasis");
+                    //money.Add(-destroyAmount);
                     Destroy(containedObject);
                     break;
                 }
@@ -174,6 +185,7 @@ public class BaseZone : MonoBehaviour
                 }
                 else
                 {
+                    //money.Add(-destroyAmount);
                     Debug.Log("Should destroy Wheel");
                     Destroy(containedObject);
                     break;
@@ -182,6 +194,8 @@ public class BaseZone : MonoBehaviour
         if (CurrentCar == CarRecepie)
         {
             Debug.Log("Winner");
+            money.Add(1000);
+            CurrentCar = BaseCar;
             foreach (GameObject carPart in AllCarParts)
             {
                 Destroy(carPart);

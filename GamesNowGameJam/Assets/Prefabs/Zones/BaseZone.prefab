@@ -1127,6 +1127,8 @@ MonoBehaviour:
   ExecutionPosition: {fileID: 2824680940264903884}
   carColor: {r: 1, g: 1, b: 1, a: 1}
   launchForce: 5
+  money: {fileID: 11400000, guid: 8346b3e1b74159e458eda895974b027a, type: 2}
+  destroyAmount: 50
   CarRecepie:
     requiredWheels: 4
     fullEngine: 1

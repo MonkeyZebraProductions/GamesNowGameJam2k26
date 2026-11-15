@@ -1208,6 +1208,7 @@ MonoBehaviour:
   - {fileID: 3426380615467978299}
   - {fileID: 2548307703640260076}
   - {fileID: 2269511343398064195}
+  money: {fileID: 11400000, guid: 8346b3e1b74159e458eda895974b027a, type: 2}
 --- !u!1 &4550736891593876929
 GameObject:
   m_ObjectHideFlags: 0

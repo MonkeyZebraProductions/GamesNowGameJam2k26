@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Money
   m_EditorClassIdentifier: Assembly-CSharp::Resource
   _icon: {fileID: 3106341853739790030, guid: f74210d55a4da044eb2adef92c8ddf2e, type: 3}
-  _amount: 0
+  _amount: 1000

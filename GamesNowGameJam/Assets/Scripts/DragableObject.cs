@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,30 +37,4 @@ public class DragableObject : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        return;
-
-        if (!DOTween.IsTweening(pallet.transform))
-        {
-            if (!_zoomedIn)
-            {
-                panCamera.MoveAndZoomToTarget(transform.position);
-            }
-            else
-            {
-                panCamera.ZoomOutOfTarget();
-            }
-            _zoomedIn = !_zoomedIn;
-
-        }
-    }
-
-    //private void OnMouseDrag()
-    //{
-    //    transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x - mouseOffset.x, 
-    //        Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y-mouseOffset.y,
-    //        0);
-
-    //}
 }
