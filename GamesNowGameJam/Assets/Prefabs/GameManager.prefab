@@ -137,3 +137,27 @@ MonoBehaviour:
     loop: 0
     ignorePause: 0
     source: {fileID: 0}
+  - clipName: belt
+    clip: {fileID: 8300000, guid: 5f8e1d6170d03674582cf9629fd86c69, type: 3}
+    isMusic: 0
+    threeD: 0
+    mute: 0
+    loop: 1
+    ignorePause: 0
+    source: {fileID: 0}
+  - clipName: buid
+    clip: {fileID: 8300000, guid: 06395dab2570b72499dbafd64a75d864, type: 3}
+    isMusic: 0
+    threeD: 0
+    mute: 0
+    loop: 0
+    ignorePause: 0
+    source: {fileID: 0}
+  - clipName: paint
+    clip: {fileID: 8300000, guid: 56c39890ba118cf42b3f1b6ff8eec16e, type: 3}
+    isMusic: 0
+    threeD: 0
+    mute: 0
+    loop: 0
+    ignorePause: 0
+    source: {fileID: 0}
