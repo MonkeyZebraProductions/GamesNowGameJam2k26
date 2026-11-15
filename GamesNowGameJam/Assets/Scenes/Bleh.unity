@@ -1044,24 +1044,12 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 651693970664449578, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -233.91998
-      objectReference: {fileID: 0}
-    - target: {fileID: 887924287087878308, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1428222960414343495, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 45.222008
       objectReference: {fileID: 0}
     - target: {fileID: 1436771308914393205, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -480.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743417086259144441, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 2197785414433137419, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1095,22 +1083,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3289265022348343204, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -480.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 3600458176138470453, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3768054761480186867, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046929397491405704, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4251003033136626131, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1126,18 +1098,6 @@ PrefabInstance:
     - target: {fileID: 4251003033136626131, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274961487710761000, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5172611422274270085, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5262547391893455499, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5271020346840736079, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1251,10 +1211,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7655027716182168357, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7785017357125210142, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1275,14 +1231,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 342956481}
-    - target: {fileID: 8686602658776698407, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9131080131368267554, guid: ac1dfa6ef1600a343bb58c8b24eb24a5, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

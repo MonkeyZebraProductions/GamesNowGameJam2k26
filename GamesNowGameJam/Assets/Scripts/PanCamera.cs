@@ -29,6 +29,8 @@ public class PanCamera : MonoBehaviour
     private float maxX;
     private float minY;
     private float maxY;
+
+    private float storedOrthographicSize;
     private void Awake()
     {
         //Assigns variables at start of Runtime
@@ -36,7 +38,7 @@ public class PanCamera : MonoBehaviour
         panAction = playerInput.actions["PanCameraButton"];
         zoomAction = playerInput.actions["ZoomCamera"];
         _canPan = true;
-        if(boundingBox == null)
+        if (boundingBox == null)
         {
             boundingBox = FindAnyObjectByType<BoundingBox>();
         }
@@ -60,7 +62,7 @@ public class PanCamera : MonoBehaviour
         {
             mouseDelta = Mouse.current.position.ReadValue() - mouseStartPos;
             Vector3 cameraPos = cameraStartPos + mouseDelta / (mouseDivisor - Camera.main.orthographicSize);
-            if(WithinBounds(cameraPos))
+            if (WithinBounds(cameraPos))
             {
                 Camera.main.transform.position = new Vector3(cameraPos.x, cameraPos.y, -10);
             }
@@ -83,7 +85,7 @@ public class PanCamera : MonoBehaviour
     {
         var vertExtent = Camera.main.orthographicSize;
         var horzExtent = vertExtent * Screen.width / Screen.height;
-        return !(positionToCheck.x - horzExtent < minX) && !(positionToCheck.x + horzExtent > maxX) && !(positionToCheck.y - vertExtent < minY) && !(positionToCheck.y + vertExtent > maxY); 
+        return !(positionToCheck.x - horzExtent < minX) && !(positionToCheck.x + horzExtent > maxX) && !(positionToCheck.y - vertExtent < minY) && !(positionToCheck.y + vertExtent > maxY);
     }
     void PanButtonDown()
     {
@@ -121,10 +123,21 @@ public class PanCamera : MonoBehaviour
         if (!_canPan) return;
 
         Camera camera = Camera.main;
-        camera.transform.position = storedPosition;
+
+        // Store the current camera view before moving
+        storedPosition = camera.transform.position;
+        storedOrthographicSize = camera.orthographicSize;
+
+        // Kill any existing camera tweens
+        camera.transform.DOKill();
+        camera.DOKill();
+
         Vector3 realTarget = new Vector3(targetPosition.x, targetPosition.y, -10f) + offset;
-        camera.transform.DOMove(realTarget, 1f);
-        camera.DOOrthoSize(5f, 1f);
+
+        DOTween.Sequence()
+            .Join(camera.transform.DOMove(realTarget, 1f))
+            .Join(camera.DOOrthoSize(5f, 1f));
+
         _canPan = false;
         _lockZoom = true;
         Pallet.SetActive(false);
@@ -133,9 +146,18 @@ public class PanCamera : MonoBehaviour
     public void ZoomOutOfTarget()
     {
         Camera camera = Camera.main;
-        camera.transform.DOMove(new Vector3(storedPosition.x, storedPosition.y, -10f), 1f);
-        camera.DOOrthoSize(20f, 1f);
-        _canPan = true;
-        _lockZoom = false;
+
+        // Kill existing tweens
+        camera.transform.DOKill();
+        camera.DOKill();
+
+        DOTween.Sequence()
+            .Join(camera.transform.DOMove(storedPosition, 1f))
+            .Join(camera.DOOrthoSize(storedOrthographicSize, 1f))
+            .OnComplete(() =>
+            {
+                _canPan = true;
+                _lockZoom = false;
+            });
     }
 }
