@@ -16,7 +16,7 @@ public class Claw : Gadget
     [SerializeField] private float _minExtendTime = 0.5f;
     [SerializeField] private float _maxExtendTime = 1f;
 
-    private Rigidbody2D _caughtPart;
+    private Part _caughtPart;
     private float _clawDefaultYPosition;
     private bool _active;
 
@@ -58,12 +58,11 @@ public class Claw : Gadget
     {
         if (!_placed) return;
 
-        if (collision.TryGetComponent<Rigidbody2D>(out var component) && !_active)
+        if (collision.TryGetComponent<Part>(out var component) && !_active)
         {
-            if (component.gravityScale == 0) return;
+            if (component._rigidBody.gravityScale == 0) return;
 
             var part = component.transform;
-            component.totalTorque = 0f;
 
             part.SetParent(transform, true);
             var maxReach = part.localPosition.y;
@@ -76,7 +75,7 @@ public class Claw : Gadget
     }
 
 
-    private void Activate(Rigidbody2D rigidbody2D, float maxReach, float extendTime)
+    private void Activate(Part part, float maxReach, float extendTime)
     {
         if (_active) return;
 
@@ -86,7 +85,7 @@ public class Claw : Gadget
 
         _claw.DOLocalMoveY(maxReach, extendTime).SetEase(Ease.Linear).OnComplete(() =>
         {
-            GrabPart(rigidbody2D);
+            GrabPart(part);
             Retract();
         });
     }
@@ -97,13 +96,13 @@ public class Claw : Gadget
     }
 
 
-    private void GrabPart(Rigidbody2D rigidbody2D)
+    private void GrabPart(Part part)
     {
-        _caughtPart = rigidbody2D;
+        _caughtPart = part;
 
 
-        _caughtPart.linearVelocity = Vector2.zero;
-        _caughtPart.gravityScale = 0f;
+        _caughtPart.ResetVelocity();
+        _caughtPart._rigidBody.gravityScale = 0;
 
         _caughtPart.transform.parent = _claw;
 
@@ -119,7 +118,8 @@ public class Claw : Gadget
         _active = false;
 
         _caughtPart.transform.parent = null;
-        _caughtPart.gravityScale = 1;
+        _caughtPart._rigidBody.gravityScale = 1;
+
 
         // visual change
 

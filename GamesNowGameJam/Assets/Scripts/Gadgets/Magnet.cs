@@ -56,21 +56,22 @@ public class Magnet : Gadget
     {
         if (!_placed) return;
 
-        if (_active && collision.TryGetComponent<Rigidbody2D>(out var component))
+        if (_active && collision.TryGetComponent<Part>(out var component))
         {
             var center = transform.position;
             var partPosition = component.transform.position;
 
             var directionTowardsCenter = center - partPosition;
             directionTowardsCenter = directionTowardsCenter.normalized;
+            var force = directionTowardsCenter * Mathf.Abs(_magnetPower);
 
-            component.AddForce(directionTowardsCenter * Mathf.Abs(_magnetPower), ForceMode2D.Force);
+            component.Push(force, ForceMode2D.Force);
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_active && collision.TryGetComponent<Rigidbody2D>(out var component))
+        if (_active && collision.TryGetComponent<Part>(out var component))
         {
             _objectsInField++;
             _objectsInField = Mathf.Clamp(_objectsInField, 0, 100);

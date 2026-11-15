@@ -57,11 +57,11 @@ public class AirPump : Gadget
     {
         if (!_placed) return;
 
-        if (collision.TryGetComponent<Rigidbody2D>(out var component))
+        if (collision.TryGetComponent<Part>(out var component))
         {
             if (_resetsVelocity)
             {
-                component.linearVelocity = Vector3.zero;
+                component.ResetVelocity();
             }
         }
     }
@@ -70,11 +70,14 @@ public class AirPump : Gadget
     {
         if (!_placed) return;
 
-        if (collision.TryGetComponent<Rigidbody2D>(out var component))
+        if (collision.TryGetComponent<Part>(out var component))
         {
             var direction = transform.up;
+            var force = direction * Mathf.Abs(_pumpPower);
 
-            component.AddForce(direction * Mathf.Abs(_pumpPower), ForceMode2D.Force);
+            component.Push(force, ForceMode2D.Force);
+
+
         }
     }
 
@@ -96,8 +99,6 @@ public class AirPump : Gadget
 
     private void Deactivate()
     {
-        Debug.Log("Stopped Working");
-
         //visuals here
 
         _pumpEffect.gameObject.SetActive(false);
@@ -110,8 +111,6 @@ public class AirPump : Gadget
         //visuals here
 
         _pumpEffect.gameObject.SetActive(true);
-
-        Debug.Log("Started Working");
 
         _collider2D.enabled = true;
     }

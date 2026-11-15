@@ -2,36 +2,6 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-[SelectionBase]
-public abstract class Gadget : MonoBehaviour
-{
-    [SerializeField] protected bool _placed = false;
-
-    public abstract string GadgetName { get; }
-
-    public abstract string FirstParametreName { get; }
-    public abstract string SecondParametreName { get; }
-
-    public abstract float FirstParametreValue { get; }
-    public abstract float FirstMinimumParametreValue { get; }
-    public abstract float FirstMaximumParametreValue { get; }
-
-    public abstract float SecondParametreValue { get; }
-    public abstract float SecondMinimumParametreValue { get; }
-    public abstract float SecondMaxParametreValue { get; }
-
-    public abstract Action<float> FirstParametreMethod { get; }
-    public abstract Action<float> SecondParametreMethod { get; }
-
-    public abstract bool HasSecondParametre { get; }
-    public bool Placed => _placed;
-
-    public void Place()
-    {
-        _placed = true;
-    }
-}
-
 
 public class Spring : Gadget
 {
@@ -86,18 +56,19 @@ public class Spring : Gadget
     {
         if (!_placed) return;
 
-        if (other.TryGetComponent<Rigidbody2D>(out var part))
+        if (other.TryGetComponent<Part>(out var part))
         {
             PushPart(part);
             Animate();
         }
     }
 
-    private void PushPart(Rigidbody2D part)
+    private void PushPart(Part part)
     {
-        part.linearVelocity = Vector2.zero;
+        part.ResetVelocity();
         var upDirection = transform.up;
-        part.AddForce(upDirection * _currentSpringPower, ForceMode2D.Impulse);
+        var force = upDirection * _currentSpringPower;
+        part.Push(force, ForceMode2D.Impulse);
     }
 
     private void Animate()

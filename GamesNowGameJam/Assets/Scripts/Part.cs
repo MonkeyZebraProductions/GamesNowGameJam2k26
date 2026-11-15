@@ -6,20 +6,26 @@ public enum PartType
     Engine,
     Chasis
 }
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class Part : MonoBehaviour
 {
     public PartType partType;
     public float Health = 100;
     public Color CurrentColor;
     public SpriteRenderer spriteRenderer;
-    [SerializeField]
-    private float minDamageSpeed = 5;
-    [HideInInspector]
-    public bool _isFeuled;
-    [HideInInspector]
+    [SerializeField] private float minDamageSpeed = 5;
+    [HideInInspector] public bool _isFeuled;
     public bool _isColoured;
-    [HideInInspector]
     public bool _isFilled;
+
+    [HideInInspector] public Rigidbody2D _rigidBody;
+
+    private void Awake()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+    }
+
     private void Start()
     {
         CurrentColor = spriteRenderer.color;
@@ -34,6 +40,7 @@ public class Part : MonoBehaviour
         {
             Health -= impactSpeed;
         }
+
         Debug.Log(Health);
 
         if (Health < 0)
@@ -48,5 +55,22 @@ public class Part : MonoBehaviour
         _isColoured = true;
         CurrentColor = color;
         spriteRenderer.color = color;
+    }
+
+    public void ResetVelocity()
+    {
+        _rigidBody.linearVelocity = Vector3.zero;
+    }
+
+    public void Push(Vector2 force, ForceMode2D forceMode)
+    {
+        _rigidBody.AddForce(force, forceMode);
+    }
+
+    public void TryFill()
+    {
+        if (partType != PartType.Wheel) return;
+
+        _isFilled = true;
     }
 }
