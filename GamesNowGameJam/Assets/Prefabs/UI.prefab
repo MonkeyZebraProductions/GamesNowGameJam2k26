@@ -771,11 +771,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6985559832473036356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -125, y: -144.33}
-  m_SizeDelta: {x: 324.2159, y: 76.0453}
-  m_Pivot: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -125}
+  m_SizeDelta: {x: 324.21594, y: 76.0453}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7598883094452043737
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1316,7 +1316,9 @@ MonoBehaviour:
   palletParent: {fileID: 0}
   startPos: {fileID: 1832591070762182495}
   endPos: {fileID: 1174826738518356024}
+  _isOpen: 0
   panCamera: {fileID: 0}
+  tweenTime: 0.3
 --- !u!1 &7129448340903746811
 GameObject:
   m_ObjectHideFlags: 0
